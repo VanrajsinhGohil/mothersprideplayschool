@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admission Enquiry - Mothers Pride Playschool</title>
+  <meta name="description"
+    content="Looking for the best play school? Fill out our Admission Enquiry form for Mothers Pride Playschool and join our vibrant learning family in Vadodara today.">
+  <meta name="keywords"
+    content="play school admission, preschool registration Vadodara, nursery admission form, daycare enrollment form, Mothers Pride Playschool admission, jr kg admission, sr kg admission, pre-school fees Vadodara, kids education admission">
+  <meta name="author" content="Vanraj Gohil">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Admission Enquiry - Mothers Pride Playschool">
+  <meta property="og:description"
+    content="Take the first step towards a bright future. Submit your admission enquiry easily and connect with us on WhatsApp.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="animations.css">
+
+  <style>
+    .page-header {
+      background: var(--accent-orange);
+      color: var(--white);
+      padding: 120px 20px 60px;
+      text-align: center;
+      border-radius: 0 0 50px 50px;
+    }
+
+    .form-container {
+      background: var(--white);
+      max-width: 650px;
+      margin: -40px auto 80px;
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      z-index: 10;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: var(--blue-dark);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid #e5e7eb;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: var(--transition);
+      background: #f9fafb;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--blue-main);
+      background: var(--white);
+    }
+
+    select.form-control {
+      cursor: pointer;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    .submit-btn i {
+      margin-right: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .form-container {
+        padding: 30px 20px;
+        margin-top: -20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <i class="fa-solid fa-shapes"></i> Mothers Pride <span>Playschool</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <button class="menu-toggle" id="mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="container">
+      <h1 class="reveal">Admission Enquiry</h1>
+      <p class="reveal">Join the Mothers Pride Playschool family!</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="form-container reveal">
+      <h2 style="text-align: center; margin-bottom: 30px; color: var(--blue-dark);">Enquiry Form</h2>
+      <form id="enquiry-form">
+        <div class="form-group">
+          <label for="parentName">Parent's Name *</label>
+          <input type="text" id="parentName" class="form-control" placeholder="Enter full name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" class="form-control" placeholder="example@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" class="form-control" placeholder="e.g. 9876543210" required>
+        </div>
+
+        <div class="form-group">
+          <label for="city">City *</label>
+          <input type="text" id="city" class="form-control" placeholder="Enter your city" required>
+        </div>
+
+        <div class="form-group">
+          <label for="program">Program Selection *</label>
+          <select id="program" class="form-control" required>
+            <option value="" disabled selected>Select a program...</option>
+            <option value="Daycare">Daycare (6+ months)</option>
+            <option value="Nursery">Nursery (3+ years)</option>
+            <option value="Jr. KG">Jr. KG (4+ years)</option>
+            <option value="Sr. KG">Sr. KG (5+ years)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="note">Additional Notes (Optional)</label>
+          <textarea id="note" class="form-control"
+            placeholder="Any specific questions or timings you're looking for?"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary submit-btn">
+          <i class="fa-brands fa-whatsapp"></i> Send Enquiry via WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom"
+        style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <p>&copy; 2026 Mothers Pride Playschool. All Rights Reserved.</p>
+        <p style="font-size: 0.95rem;">Developed by <strong style="color: var(--blue-main);">Vanraj Gohil</strong> | <a
+            href="tel:9313045917"><i class="fa-solid fa-phone"></i> +91 9313045917</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    document.getElementById('enquiry-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const pName = document.getElementById('parentName').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const city = document.getElementById('city').value;
+      const program = document.getElementById('program').value;
+      const note = document.getElementById('note').value;
+
+      // Target WhatsApp Number
+      const phoneTo = "916352636809";
+
+      let message = `*New Admission Enquiry* 🎓\n\n`;
+      message += `*Parent Name:* ${pName}\n`;
+      message += `*Email:* ${email}\n`;
+      message += `*Phone:* ${phone}\n`;
+      message += `*City:* ${city}\n`;
+      message += `*Program Interested:* ${program}\n`;
+
+      if (note) {
+        message += `*Note:* ${note}\n`;
+      }
+
+      const whatsappURL = `https://wa.me/${phoneTo}?text=${encodeURIComponent(message)}`;
+
+      // Redirect to WhatsApp
+      window.open(whatsappURL, '_blank');
+    });
+  </script>
+</body>
+
+</html>

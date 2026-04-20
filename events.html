@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events & Activities - Mothers Pride Playschool</title>
+  <meta name="description"
+    content="Check out the latest events, activities, and celebrations at Mothers Pride Playschool.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="animations.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js" defer></script>
+  <style>
+    .page-header {
+      background: var(--blue-main);
+      color: var(--white);
+      padding: 140px 20px 60px;
+      text-align: center;
+      border-radius: 0 0 50px 50px;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 60px 0;
+    }
+
+    @media (max-width: 768px) {
+      .events-grid {
+        grid-template-columns: 1fr;
+        padding: 40px 0;
+      }
+    }
+
+    .event-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .event-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .media-indicator {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      z-index: 2;
+    }
+
+    .event-cover-wrap {
+      position: relative;
+      height: 220px;
+      width: 100%;
+      background: #eee;
+    }
+
+    .event-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .event-body {
+      padding: 25px;
+    }
+
+    .event-date {
+      font-size: 0.9rem;
+      color: var(--accent-orange);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .event-title {
+      font-size: 1.5rem;
+      color: var(--blue-dark);
+      margin-bottom: 15px;
+    }
+
+    .event-desc {
+      color: var(--text-dark);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <i class="fa-solid fa-shapes"></i> Mothers Pride <span>Playschool</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <button class="menu-toggle" id="mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="container">
+      <h1 class="reveal">School Events</h1>
+      <p class="reveal">Every day is a celebration at Mothers Pride Playschool.</p>
+    </div>
+  </header>
+
+  <section class="container">
+    <div class="events-grid" id="eventsContainer">
+      <div style="text-align:center; grid-column: 1 / -1; font-size: 1.2rem; color: var(--text-light);">
+        <i class="fa-solid fa-spinner fa-spin"></i> Loading Events...
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom"
+        style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <p>&copy; 2026 Mothers Pride Playschool. All Rights Reserved.</p>
+        <p style="font-size: 0.95rem;">Developed by <strong style="color: var(--blue-main);">Vanraj Gohil</strong> | <a
+            href="tel:9313045917"><i class="fa-solid fa-phone"></i> +91 9313045917</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    window.openEventViewer = (eventId) => {
+      window.location.href = `event-details.html?id=${eventId}`;
+    };
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      // We use window.allEventsData to cache events for click handlers
+      window.allEventsData = await window.getEvents();
+      const container = document.getElementById("eventsContainer");
+      container.innerHTML = "";
+
+      if (window.allEventsData.length === 0) {
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center;">No events scheduled yet!</p>`;
+        return;
+      }
+
+      window.allEventsData.forEach((ev, index) => {
+        const delay = (index * 0.1) + 's';
+        let firstMediaUrl = "https://via.placeholder.com/400x220?text=No+Media";
+        let isVideo = false;
+
+        if (ev.media && ev.media.length > 0) {
+          firstMediaUrl = ev.media[0].url;
+          if (ev.media[0].type === 'video') isVideo = true;
+        }
+
+        let mediaHtml = isVideo ?
+          `<video src="${firstMediaUrl}" class="event-img" muted></video>` :
+          `<img src="${firstMediaUrl}" class="event-img" alt="${ev.title}" onerror="this.src='https://via.placeholder.com/400x220'">`;
+
+        container.innerHTML += `
+               <div class="event-card reveal active" style="animation-delay: ${delay}" onclick="openEventViewer('${ev.id}')">
+                 <div class="event-cover-wrap">
+                    ${ev.media && ev.media.length > 1 ? `<div class="media-indicator"><i class="fa-regular fa-images"></i> +${ev.media.length}</div>` : ''}
+                    ${isVideo ? `<div class="media-indicator" style="top:50%;left:50%;transform:translate(-50%,-50%);font-size:3rem;background:none;"><i class="fa-solid fa-circle-play"></i></div>` : ''}
+                    ${mediaHtml}
+                 </div>
+                 <div class="event-body">
+                   <div class="event-date"><i class="fa-regular fa-calendar"></i> ${ev.date}</div>
+                   <h3 class="event-title">${ev.title}</h3>
+                   <p class="event-desc">${ev.description}</p>
+                 </div>
+               </div>
+            `;
+      });
+    });
+  </script>
+</body>
+
+</html>

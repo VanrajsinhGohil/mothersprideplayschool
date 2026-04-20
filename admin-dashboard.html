@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Mothers Pride Playschool</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="global.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js" defer></script>
+  <style>
+    body {
+      background-color: var(--soft-blue);
+    }
+
+    .dashboard-container {
+      max-width: 1000px;
+      margin: 120px auto 50px;
+      padding: 0 20px;
+    }
+
+    .panel {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 30px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      border-bottom: 2px solid var(--soft-blue);
+      padding-bottom: 15px;
+    }
+
+    .panel-header h2 {
+      color: var(--blue-dark);
+      font-size: 1.8rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: var(--blue-dark);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+      background: #fff;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+      background: #f9fafb;
+      color: var(--text-dark);
+    }
+
+    td img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 5px;
+    }
+
+    .btn-sm {
+      padding: 8px 15px;
+      font-size: 0.9rem;
+      margin-right: 5px;
+    }
+
+    .btn-danger {
+      background: #EF4444;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-info {
+      background: #3B82F6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #loadingOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-size: 1.5rem;
+      color: var(--blue-main);
+    }
+
+    .loading-spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid var(--blue-main);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <div>Uploading Media & Saving...</div>
+  </div>
+
+  <nav class="navbar" style="position: relative; top: 20px;">
+    <div class="container">
+      <div class="logo">
+        <i class="fa-solid fa-shapes"></i> Admin <span>Panel</span>
+      </div>
+      <div>
+        <a href="index.html" class="btn btn-outline btn-sm">View Site</a>
+        <button id="logoutBtn" class="btn btn-primary btn-sm" style="margin-left: 10px;">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dashboard-container">
+    <div class="panel">
+      <div class="panel-header">
+        <h2 id="formTitle"><i class="fa-solid fa-plus-circle"></i> Add New Event</h2>
+        <button id="cancelEditBtn" class="btn btn-danger btn-sm" style="display:none;">Cancel Edit</button>
+      </div>
+      <form id="addEventForm">
+        <input type="hidden" id="eventId">
+        <div class="form-group">
+          <label for="eventTitle">Event Title</label>
+          <input type="text" id="eventTitle" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="eventDate">Event Date</label>
+          <input type="date" id="eventDate" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="eventDesc">Event Description</label>
+          <textarea id="eventDesc" class="form-control" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="eventMedia">Upload Photos / Videos (Multiple Allowed)</label>
+          <input type="file" id="eventMedia" class="form-control" accept="image/*,video/*" multiple>
+          <div id="selectedFilesPreview" style="margin-top:10px; font-size:0.9rem; color:var(--blue-dark);"></div>
+          <small style="color:red;" id="editMediaNote">Note: Uploading new files will ADD to existing media when
+            editing.</small>
+        </div>
+        <button type="submit" class="btn btn-accent" id="submitBtn">Publish Event</button>
+      </form>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <h2><i class="fa-solid fa-list"></i> Manage Events</h2>
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Preview</th>
+              <th>Title</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="eventsTableBody">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Security check
+    window.addEventListener("load", async () => {
+      if (!window.supabaseClient) {
+        alert("Waiting for Supabase..."); return;
+      }
+      const { data } = await window.supabaseClient.auth.getSession();
+      if (!data.session) {
+        window.location.href = "admin-login.html";
+      }
+      loadEvents();
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      if (window.supabaseClient) await window.supabaseClient.auth.signOut();
+      window.location.href = "admin-login.html";
+    });
+
+    let currentEvents = [];
+
+    const loadEvents = async () => {
+      if (!window.supabaseClient) return;
+      const { data, error } = await supabaseClient.from('events').select('*').order('date', { ascending: false });
+      if (error) { console.error("Error fetching", error); return; }
+      currentEvents = data;
+      const tbody = document.getElementById("eventsTableBody");
+      tbody.innerHTML = "";
+
+      data.forEach(ev => {
+        let firstMedia = (ev.media && ev.media.length > 0) ? ev.media[0] : null;
+        let previewHtml = "";
+        if (firstMedia) {
+          if (firstMedia.type === 'image') previewHtml = `<img src="${firstMedia.url}" alt="...">`;
+          else previewHtml = `<video src="${firstMedia.url}" style="width:60px; height:60px; object-fit:cover; border-radius:4px;"></video>`;
+        } else {
+          previewHtml = "<span>No media</span>";
+        }
+
+        tbody.innerHTML += `
+                <tr>
+                    <td>${previewHtml} (+${ev.media ? Math.max(0, ev.media.length - 1) : 0})</td>
+                    <td><strong>${ev.title}</strong></td>
+                    <td>${ev.date}</td>
+                    <td>
+                        <button class="btn-info btn-sm" onclick="editEvent('${ev.id}')"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn-danger btn-sm" onclick="deleteEvent('${ev.id}')"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `;
+      });
+    };
+
+    let selectedFilesToUpload = [];
+
+    document.getElementById("eventMedia").addEventListener("change", (e) => {
+      const files = Array.from(e.target.files);
+      selectedFilesToUpload = selectedFilesToUpload.concat(files);
+      updateFilesPreview();
+      // Clear input so selecting the same file again triggers change if needed
+      e.target.value = "";
+    });
+
+    const updateFilesPreview = () => {
+      const previewDiv = document.getElementById("selectedFilesPreview");
+      if (selectedFilesToUpload.length === 0) {
+        previewDiv.innerHTML = "";
+        return;
+      }
+      let html = "<strong>Files ready to upload:</strong> <ul>";
+      selectedFilesToUpload.forEach((f, idx) => {
+        html += `<li>${f.name} <button type="button" onclick="removeFile(${idx})" style="color:red; background:none; border:none; cursor:pointer;"><i class="fa-solid fa-times"></i></button></li>`;
+      });
+      html += "</ul>";
+      previewDiv.innerHTML = html;
+    };
+
+    window.removeFile = (index) => {
+      selectedFilesToUpload.splice(index, 1);
+      updateFilesPreview();
+    };
+
+    window.editEvent = (id) => {
+      const ev = currentEvents.find(e => e.id === id);
+      if (!ev) return;
+      document.getElementById("eventId").value = ev.id;
+      document.getElementById("eventTitle").value = ev.title;
+      document.getElementById("eventDate").value = ev.date;
+      document.getElementById("eventDesc").value = ev.description;
+      document.getElementById("formTitle").innerHTML = `<i class="fa-solid fa-pen"></i> Edit Event`;
+      document.getElementById("submitBtn").innerText = "Save Changes";
+      document.getElementById("cancelEditBtn").style.display = "block";
+      selectedFilesToUpload = [];
+      updateFilesPreview();
+      window.scrollTo(0, 0);
+    };
+
+    document.getElementById("cancelEditBtn").addEventListener("click", () => {
+      document.getElementById("addEventForm").reset();
+      document.getElementById("eventId").value = "";
+      document.getElementById("formTitle").innerHTML = `<i class="fa-solid fa-plus-circle"></i> Add New Event`;
+      document.getElementById("submitBtn").innerText = "Publish Event";
+      document.getElementById("cancelEditBtn").style.display = "none";
+      selectedFilesToUpload = [];
+      updateFilesPreview();
+    });
+
+    window.deleteEvent = async (id) => {
+      if (confirm("Are you sure you want to delete this event? This action is permanent!")) {
+        // Optionally delete storage files here, but deleting the record is step 1
+        const { error } = await supabaseClient.from('events').delete().eq('id', id);
+        if (error) alert("Error deleting event: " + error.message);
+        else loadEvents();
+      }
+    };
+
+    document.getElementById("addEventForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      document.getElementById("loadingOverlay").style.display = "flex";
+
+      const id = document.getElementById("eventId").value;
+      const title = document.getElementById("eventTitle").value;
+      const date = document.getElementById("eventDate").value;
+      const description = document.getElementById("eventDesc").value;
+      const files = selectedFilesToUpload;
+
+      let mediaArray = [];
+
+      // If editing, preserve old media array
+      if (id) {
+        const ev = currentEvents.find(e => e.id === id);
+        if (ev && ev.media) mediaArray = [...ev.media];
+      }
+
+      // Upload new files
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+
+        const { data, error } = await supabaseClient.storage
+          .from('event_media')
+          .upload(fileName, file);
+
+        if (!error) {
+          const { data: publicUrlData } = supabaseClient.storage.from('event_media').getPublicUrl(fileName);
+          const type = file.type.startsWith('video') ? 'video' : 'image';
+          mediaArray.push({ type: type, url: publicUrlData.publicUrl });
+        } else {
+          console.error("Failed to upload: " + file.name, error);
+        }
+      }
+
+      let dbError;
+      if (id) {
+        // Update
+        const { error } = await supabaseClient.from('events').update({
+          title, date, description, media: mediaArray
+        }).eq('id', id);
+        dbError = error;
+      } else {
+        // Insert
+        const { error } = await supabaseClient.from('events').insert([{
+          title, date, description, media: mediaArray
+        }]);
+        dbError = error;
+      }
+
+      document.getElementById("loadingOverlay").style.display = "none";
+
+      if (dbError) {
+        alert("Error saving event: " + dbError.message);
+      } else {
+        alert("Event saved successfully!");
+        document.getElementById("cancelEditBtn").click(); // Resets form
+        loadEvents();
+      }
+    });
+
+  </script>
+</body>
+
+</html>

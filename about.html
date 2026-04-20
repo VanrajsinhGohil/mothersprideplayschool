@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Mothers Pride Playschool</title>
+  <meta name="description"
+    content="Learn more about Mothers Pride Playschool's vision, mission, and our passion for early childhood learning. We provide a safe, engaging, and loving environment for your child's overall development.">
+  <meta name="keywords"
+    content="about Mothers Pride Playschool, pre-school mission, daycare vision, why choose our preschool, child care experts Vadodara, early education philosophy, interactive storytelling, 3D learning, certified teachers, best nursery Vadodara">
+  <meta name="author" content="Vanraj Gohil">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="About Us - Mothers Pride Playschool">
+  <meta property="og:description"
+    content="Discover the story and core values behind Mothers Pride Playschool. Learn why parents trust us as the leading pre-school and daycare.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="animations.css">
+
+  <style>
+    .page-header {
+      background: var(--blue-main);
+      color: var(--white);
+      padding: 120px 20px 60px;
+      text-align: center;
+      border-radius: 0 0 50px 50px;
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .about-story {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      margin-top: 50px;
+    }
+
+    .story-img {
+      flex: 1;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .story-img::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--accent-yellow);
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .story-img img {
+      width: 100%;
+      height: auto;
+      transform: scale(1);
+      transition: var(--transition);
+    }
+
+    .story-img:hover img {
+      transform: scale(1.05);
+    }
+
+    .story-text {
+      flex: 1;
+    }
+
+    .story-text h2 {
+      font-size: 2.2rem;
+      color: var(--blue-dark);
+      margin-bottom: 20px;
+    }
+
+    .story-text p {
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+    }
+
+    .vision-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+    }
+
+    .v-card {
+      background: var(--white);
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      border-top: 5px solid var(--accent-orange);
+    }
+
+    .v-card:nth-child(2) {
+      border-top-color: var(--blue-main);
+    }
+
+    .v-card i {
+      font-size: 3rem;
+      color: var(--accent-orange);
+      margin-bottom: 20px;
+    }
+
+    .v-card:nth-child(2) i {
+      color: var(--blue-main);
+    }
+
+    .v-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--blue-dark);
+    }
+
+    @media (max-width: 768px) {
+      .about-story {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <i class="fa-solid fa-shapes"></i> Mothers Pride <span>Playschool</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <button class="menu-toggle" id="mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <h1 class="reveal">About Our School</h1>
+      <p class="reveal">Nurturing young minds with love, care, and education.</p>
+    </div>
+  </header>
+
+  <!-- Our Story Section -->
+  <section class="section container reveal">
+    <div class="about-story">
+      <div class="story-img">
+        <img
+          src="children-playing-together-building-blocks-educational-toys-preschool-kindergarten-kids-little-girls-build-toys-h-90711453.webp"
+          alt="Kids playing in preschool">
+      </div>
+      <div class="story-text">
+        <h2>Welcome to <span>Mothers Pride Playschool</span></h2>
+        <p>Established with a vision to redefine early childhood education, Mothers Pride Playschool is more than just a
+          play
+          school. It is a second home for your child.</p>
+        <p>We believe that every child is unique and deserves an environment that celebrates their individuality. Our
+          curriculum is specifically designed keeping in mind the cognitive, physical, and emotional development of a
+          child.</p>
+        <p>Through games, interactive storytelling, 3D illustrative learning, and our highly experienced staff, we make
+          learning a joyful adventure!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision & Mission -->
+  <section class="section container reveal">
+    <div class="vision-cards">
+      <div class="v-card">
+        <i class="fa-solid fa-eye anim-pulse"></i>
+        <h3>Our Vision</h3>
+        <p>To foster an inclusive environment where young learners can discover their passions, build fundamental
+          skills, and develop a lifelong love for learning and discovery.</p>
+      </div>
+      <div class="v-card">
+        <i class="fa-solid fa-bullseye anim-pulse"></i>
+        <h3>Our Mission</h3>
+        <p>To provide high-quality early childhood education through an innovative play-way methodology, ensuring
+          cognitive growth, social responsibility, and strong family partnerships.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="section">
+    <div class="container reveal" style="text-align: center;">
+      <div class="section-title">
+        <h2>Why <span>Choose Us?</span></h2>
+      </div>
+      <img src="istockphoto-505936825-612x612.jpg" alt="Children artwork"
+        style="width: 100%; max-width: 800px; margin: 0 auto 30px; border-radius: var(--radius-lg);">
+      <p style="font-size: 1.2rem; color: var(--text-dark); max-width: 800px; margin: 0 auto;">
+        We combine a highly active learning curriculum with top-of-the-line infrastructure. Our educators act as
+        facilitators, guiding children as they explore the world around them.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="logo" style="margin-bottom: 20px;">
+            <i class="fa-solid fa-shapes"></i> Mothers Pride <span>Playschool</span>
+          </a>
+          <p>Creating beautiful memories and strong foundations for your little ones.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <p><a href="about.html">About Us</a></p>
+          <p><a href="events.html">Events</a></p>
+          <p><a href="reviews.html">Parent Reviews</a></p>
+        </div>
+        <div class="footer-col">
+          <h3>Contact Detail</h3>
+          <p><i class="fa-solid fa-location-dot"></i> A/4 BHAVANIKUNJ SOCIETY, NR SKYMARK AVENUE RAMVATIKA, WAGHODIA RD,
+            VADODARA</p>
+          <p><i class="fa-solid fa-phone"></i> +91 6352636809</p>
+        </div>
+      </div>
+      <div class="footer-bottom"
+        style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <p>&copy; 2026 Mothers Pride Playschool. All Rights Reserved.</p>
+        <p style="font-size: 0.95rem;">Developed by <strong style="color: var(--blue-main);">Vanraj Gohil</strong> | <a
+            href="tel:9313045917"><i class="fa-solid fa-phone"></i> +91 9313045917</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Widget (simplified for brevity, main logic in main.js) -->
+  <div class="whatsapp-widget">
+    <div class="whatsapp-chat-box" id="wa-chat-box">
+      <div class="chat-header">
+        <h4><i class="fa-brands fa-whatsapp"></i> Mothers Pride Playschool</h4>
+        <button class="close-chat" id="close-wa"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="chat-body">
+        <div class="chat-msg">Hello! 👋 How can we help you today?</div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="wa-message-input" placeholder="Type your message...">
+        <button id="wa-send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </div>
+    <div class="whatsapp-btn" id="wa-trigger-btn">
+      <i class="fa-brands fa-whatsapp"></i>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
